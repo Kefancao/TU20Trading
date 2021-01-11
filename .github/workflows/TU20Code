@@ -1,0 +1,78 @@
+# Simple/Exponential Moving Average
+# Fib Retracement
+# MACD
+# Bollinger Band
+# Relative Strength Index
+# ADX
+#
+
+# Given a list of prices
+
+#Period = 9, longer period = 54
+
+
+# ****************************************************************
+# *    SMA Crossover Buy/Sell
+# *    Should buy when the fast moving average crosses over the 
+# *    slow moving average and vice versa
+# ****************************************************************
+
+# Methods in the 'stock' class include the following:
+# SMA
+# EMA
+class stock:
+    def __init__(self, ticker, prices, volume):
+        self.ticker = ticker
+        self.prices = prices
+        self.volume = volume
+        
+    def sma(self, period):
+    d = 0 
+    total = 0 
+    averages = []
+    acc = period
+
+    while acc != 1:
+        averages.append(0)
+        acc -=1
+    for item in self.prices:
+        total = 0
+        i = 0 
+        if d + period >= len(self.prices):
+            break
+        while i != period: 
+            total += self.prices[d + i]
+            i += 1
+
+        averages.append(total / period)
+        d+= 1
+
+    return averages
+        
+    def ema(self, period):
+        smoothing = 2
+        adj_factor = smoothing / (1 + period)
+        e_0 = self.prices[0] * adj_factor
+        result = [e_0]
+        for i in range(1,len(self.prices)) :
+            e_1 = e_0 * (1 - adj_factor) + self.prices[i] * adj_factor
+            e_0 = e_1 
+            result.append(e_0)
+        return result
+
+    # requires : fast < slow
+    def compare_sma(self, slow, fast):
+        slow = sma(self.prices, slow)
+        fast = sma(self.prices, fast)
+
+        if fast[-1] > slow[-1]:
+            return "buy"
+        else: 
+        return "sell"
+
+# ****************************************************************
+# ****************************************************************
+# ****************************************************************
+
+
+p = [2, 2, 3, 4, 4, 3, 2, 2, 3, 4, 5, 6, 6, 5, 5, 4, 4, 3, 4, 4, 3]
