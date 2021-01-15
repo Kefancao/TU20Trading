@@ -59,6 +59,16 @@ class stock:
             e_0 = e_1 
             result.append(e_0)
         return result
+        
+   def macd(prices) :
+    a = ema(prices, 12)
+    b = ema(prices,24)
+    return a - b
+  
+  def stoch_osc(prices) :
+    lowest = min(prices[-14:len(prices)])
+    highest = max(prices[-14:len(prices)])
+    return (prices[len(prices) - 1] - lowest) / (highest - lowest) * 100
 
     # requires : fast < slow
     def compare_sma(self, slow, fast):
