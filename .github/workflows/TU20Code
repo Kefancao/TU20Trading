@@ -5,7 +5,7 @@
 # Relative Strength Index
 # ADX
 #
-
+import webbrowser
 # Given a list of prices
 
 #Period = 9, longer period = 54
@@ -21,33 +21,31 @@
 # SMA
 # EMA
 class stock:
-    def __init__(self, ticker, prices, volume):
-        self.ticker = ticker
+    def __init__(self, prices):
         self.prices = prices
-        self.volume = volume
         
     def sma(self, period):
-    d = 0 
-    total = 0 
-    averages = []
-    acc = period
+        d = 0 
+        total = 0 
+        averages = []
+        acc = period
 
-    while acc != 1:
-        averages.append(0)
-        acc -=1
-    for item in self.prices:
-        total = 0
-        i = 0 
-        if d + period >= len(self.prices):
-            break
-        while i != period: 
-            total += self.prices[d + i]
-            i += 1
+        while acc != 1:
+            averages.append(0)
+            acc -=1
+        for item in self.prices:
+            total = 0
+            i = 0 
+            if d + period >= len(self.prices):
+                break
+            while i != period: 
+                total += self.prices[d + i]
+                i += 1
 
-        averages.append(total / period)
-        d+= 1
+            averages.append(total / period)
+            d+= 1
 
-    return averages
+        return averages
         
     def ema(self, period):
         smoothing = 2
@@ -60,25 +58,25 @@ class stock:
             result.append(e_0)
         return result
         
-   def macd(prices) :
-    a = ema(prices, 12)
-    b = ema(prices,24)
-    return a - b
+    def macd(self) :
+        a = self.ema(12)
+        b = self.ema(24)
+        return a - b
   
-  def stoch_osc(prices) :
-    lowest = min(prices[-14:len(prices)])
-    highest = max(prices[-14:len(prices)])
-    return (prices[len(prices) - 1] - lowest) / (highest - lowest) * 100
+    def stoch_osc(self) :
+        lowest = min(self.prices[-14:len(self.prices)])
+        highest = max(self.prices[-14:len(self.prices)])
+        return (self.prices[len(self.prices) - 1] - lowest) / (highest - lowest) * 100
 
     # requires : fast < slow
     def compare_sma(self, slow, fast):
-        slow = sma(self.prices, slow)
-        fast = sma(self.prices, fast)
+        slow = self.sma(slow)
+        fast = self.sma(fast)
 
         if fast[-1] > slow[-1]:
             return "buy"
         else: 
-        return "sell"
+            return "sell"
 
 # ****************************************************************
 # ****************************************************************
@@ -134,3 +132,42 @@ def RSI(prices,period) :
             rsi_0 = rsi_1
             RSI.append(rsi_0)
     return RSI
+
+
+def main():
+    sample = stock(p)
+    check = input("Please select an action\nGeneral Analysis(GA):\nSpecific indicator explanation(SPEC):\nQUIT(Q):\n")
+
+
+    def explanation():
+        check = input("Which indicator would you like to learn about?\n 1. SMA\n 2. EMA\n 3.MACD\n 4.RSI\n")
+        if check == "1": 
+            webbrowser.open('https://www.investopedia.com/terms/s/sma.asp')
+        elif check == "2": 
+            webbrowser.open("https://www.investopedia.com/terms/e/ema.asp")     
+        elif check == "3": 
+            webbrowser.open("https://www.investopedia.com/terms/m/macd.asp")       
+        elif check == "4":
+            webbrowser.open("https://www.investopedia.com/terms/r/rsi.asp")
+        
+    if check == "GA":
+        print("9-SMA: ")
+        print(sample.sma(9))
+        print("\n")
+        print("9-EMA: ")
+        print(sample.ema(9))
+        print("\n")
+        print("RSI: ")
+        print(RSI(sample.prices, 9))
+        
+    elif check == "SPEC":
+        explanation()
+    else:
+        return 0
+
+
+   
+
+if __name__ == "__main__":
+    main()
+    
