@@ -12,7 +12,15 @@ body{
     padding-right: 300px;
 }
 
-.title
+.title{
+    position: absolute;
+    font-size: 40px;
+    left: 50%; 
+    top: 40%;
+    transform: translate(-50%, -50%);
+}
+
+.buttons{
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -26,7 +34,7 @@ button{
     font-size: 20px;
     box-sizing: border-box;
     height: 60px;
-    width: 260px;
+    width: 200px;
     border-color: #BFD7ED;
     cursor: pointer;
 }
