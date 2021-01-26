@@ -12,16 +12,7 @@ body{
     padding-right: 300px;
 }
 
-.title{
-    position: absolute;
-    margin: 30px;
-    font-size: 40px;
-    left: 50%; 
-    top: 30%;
-    transform: translate(-50%, -50%);
-}
-
-.buttons{
+.title
     position: absolute;
     display: flex;
     flex-direction: column;
