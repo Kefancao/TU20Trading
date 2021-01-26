@@ -14,6 +14,7 @@ body{
 
 .title{
     position: absolute;
+    margin: 30px;
     font-size: 40px;
     left: 50%; 
     top: 30%;
